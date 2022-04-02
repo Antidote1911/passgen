@@ -1,0 +1,26 @@
+[package]
+name = "passgen"
+version = "0.4.0"
+authors = ["Antidote1911 <antidote1911@gmail.com>"]
+license = "MIT"
+description = "🔑 Random password generator"
+keywords = ["cli", "password"]
+categories = ["command-line-utilities"]
+homepage = "https://github.com/Antidote1911/passgen"
+repository = "https://github.com/Antidote1911/passgen"
+readme = "README.md"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+clap = { version = "3.1.6", features = ["derive", "cargo"] }
+serde = { version = "1.0", features = ["derive"] }
+confy = "0.4"
+color-eyre = "0.6.1"
+question = "0.2.2"
+libpassgen = { path = "https://github.com/Antidote1911/libpassgen" }
+
+[dev-dependencies]
+assert_cmd = "1.0"
+predicates = "1.0"

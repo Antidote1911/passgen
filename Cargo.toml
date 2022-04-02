@@ -19,7 +19,7 @@ serde = { version = "1.0", features = ["derive"] }
 confy = "0.4"
 color-eyre = "0.6.1"
 question = "0.2.2"
-libpassgen = { path = "https://github.com/Antidote1911/libpassgen" }
+libpassgen = { git = "https://github.com/Antidote1911/libpassgen", branch = "master" }
 
 [dev-dependencies]
 assert_cmd = "1.0"

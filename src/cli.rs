@@ -1,7 +1,7 @@
 use crate::config::Config;
 
 use clap::{AppSettings, Parser};
-use passgen_core::{calculate_entropy, Pool};
+use libpassgen::{calculate_entropy, Pool};
 use std::io::Write;
 
 #[derive(Parser, Debug)]

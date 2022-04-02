@@ -1,7 +1,7 @@
 use crate::cli::{Cli, Info};
 use crate::config::Config;
 use clap::Parser;
-use passgen_core::{calculate_length, generate_n_passwords};
+use libpassgen::{calculate_length, generate_n_passwords};
 use std::io::stdout;
 use std::{fs::File, io::LineWriter, io::Write};
 

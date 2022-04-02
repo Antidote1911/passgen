@@ -1,4 +1,4 @@
-# Passgen
+# 🔑 Passgen
 
 A simple cli password generator.
 

@@ -80,5 +80,6 @@ fn writetxt(x: Vec<String>, dest: &String) -> Result<()> {
         file.write_all(i.as_bytes())?;
         file.write_all(b"\n")?;
     }
+    println!("{}", "File Saved.".green());
     Ok(())
 }

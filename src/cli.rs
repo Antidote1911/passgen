@@ -1,15 +1,18 @@
 use crate::config::Config;
 
-use clap::{AppSettings, Parser};
+use clap::Parser;
 use libpassgen::{calculate_entropy, Pool};
 use std::io::Write;
 
 #[derive(Parser, Debug)]
-#[clap(author, about, version,
-after_help = "If you do not specify any of the \
+#[clap(
+    author,
+    about,
+    version,
+    after_help = "If you do not specify any of the \
 [--uppercase, --lowercase, --digits, --symbols, --others] flags, \
-then uppercase, lowercase letters and digits will be used.",
-setting = AppSettings::DeriveDisplayOrder)]
+then uppercase, lowercase letters and digits will be used."
+)]
 pub struct Cli {
     /// Use UPPERCASE letters [A-Z]
     #[clap(short, long)]

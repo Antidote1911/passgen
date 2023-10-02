@@ -5,7 +5,7 @@ use libpassgen::{calculate_length, generate_n_passwords};
 use std::io::stdout;
 use std::{fs::File, io::LineWriter, io::Write};
 
-use color_eyre::eyre::{Result, eyre};
+use color_eyre::eyre::{eyre, Result};
 use color_eyre::owo_colors::OwoColorize;
 
 extern crate question;
@@ -27,7 +27,10 @@ fn run() -> Result<()> {
 
     if opts.reset() {
         Config::save_default().map_err(|e| eyre!(e))?;
-        println!("{}", "The default configuration was set successfully !".green());
+        println!(
+            "{}",
+            "The default configuration was set successfully !".green()
+        );
         std::process::exit(0);
     }
 
@@ -39,8 +42,8 @@ fn run() -> Result<()> {
 
     let pass_vec = generate_n_passwords(&pool, length, opts.count());
 
-    for n in 0..opts.count() {
-        println!("{}", pass_vec[n].yellow());
+    for n in pass_vec.iter().take(opts.count()) {
+        println!("{}", n.yellow());
     }
 
     if opts.output().is_some() {
@@ -57,7 +60,12 @@ fn run() -> Result<()> {
 
             if answer == Answer::YES {
                 writetxt(pass_vec, &dest).map_err(|e| eyre!(e))?;
-                println!("{} '{}' {}", "File".green(), opts.output().unwrap().green(), "was overwritten.".green());
+                println!(
+                    "{} '{}' {}",
+                    "File".green(),
+                    opts.output().unwrap().green(),
+                    "was overwritten.".green()
+                );
             } else {
                 println!("{}", "Writting file canceled.".green());
             }

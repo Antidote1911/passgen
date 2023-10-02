@@ -31,12 +31,12 @@ impl Config {
     /// Creates a new instance with values from config file `/path/to/config/dir/crate_name/crate_name.toml`.
     /// If file is missing or contains invalid values, then `Config::default()` is used.
     pub fn new() -> Config {
-        confy::load(CRATE_NAME).unwrap_or_default()
+        confy::load(CRATE_NAME, None).unwrap_or_default()
     }
 
     /// Overwrites the config file with default values.
     pub fn save_default() -> Result<(), ConfyError> {
-        confy::store(CRATE_NAME, Config::default())
+        confy::store(CRATE_NAME, None, Config::default())
     }
 
     // ----------------------- Getters ----------------------- //

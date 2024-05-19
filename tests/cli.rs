@@ -54,7 +54,7 @@ fn created_111_passwords() {
 #[test]
 fn created_50_passwords_save_txt() {
     let mut cmd = cmd();
-    cmd.args(&["-L", "6", "-c", "50", "--output", out.txt]);
+    cmd.args(&["-L", "6", "-c", "50", "--output", "out.txt"]);
     // the colored output add 10 to len of stdout
     let predicate_fn = predicate::str::contains("File Saved");
 

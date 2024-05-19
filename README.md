@@ -1,8 +1,7 @@
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](https://github.com/Antidote1911/passgen/blob/master/LICENSE-MIT)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue?style=flat-square)](https://github.com/Antidote1911/passgen/blob/master/LICENSE-APACHE)
 [![made-with-rust](https://img.shields.io/badge/Made%20with-Rust-1f425f.svg)](https://www.rust-lang.org/)
-[![Build Status](https://img.shields.io/github/workflow/status/Antidote1911/passgen/Cargo%20Build%20&%20Test?style=flat-square)](https://github.com/Antidote1911/passgen/actions/workflows/ci.yml?query=branch%3Amaster)
-
+[![Cargo Build & Test](https://github.com/Antidote1911/passgen/actions/workflows/ci.yml/badge.svg)](https://github.com/Antidote1911/passgen/actions/workflows/ci.yml)
 # 🔑 Passgen
 
 A simple cli password generator.

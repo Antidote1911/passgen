@@ -43,9 +43,3 @@ jobs:
   cargo-deny:
     name: Cargo Deny
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4

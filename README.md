@@ -20,12 +20,10 @@ Generate a password with 30 chars with upper,lower,digits and symbols:
 K~n&n&ilbafGqtra&^v&Tal2ttnxD7
 ```
 
-Generate 3 passwords with 15 chars with upper and digits and save in txt file:
+Generate a serial number with 4 digits x3 and save in txt file ( xxxx-xxxx-xxxx ) :
 ```
-./passgen -ud -c 3 -L 15 --output mypasswords.txt
-8DC2HM510IJ9LXO
-68AUQ7YN6V8JYJG
-NZGBEHVCJ6MPDWW
+./passgen -d -c 3 -L 4 --output mypasswords.txt
+4693-8883-4528
 File 'mypasswords.txt' is saved.
 ```
 Display full help with -h flag:
@@ -46,9 +44,9 @@ OPTIONS:
     -d, --digits              Use digits [0-9]
     -s, --symbols             Use special symbols [*&^%$#@!~]
     -o, --others              Use other symbols [♕♖♗♘♙♚...]
-    -L, --length <NUMBER>     Sets the required password length [default: 12]
-    -E, --entropy <NUMBER>    Sets the minimum required password entropy (conflicts with --length)
-    -c, --count <NUMBER>      Number of passwords [default: 1]
+    -L, --length <NUMBER>     Sets the required length [default: 12]
+    -E, --entropy <NUMBER>    Sets the minimum required entropy (conflicts with --length)
+    -c, --count <NUMBER>      Number of section in serial style [default: 1]
     -i, --info                Prints password information
         --output <OUTPUT>     Output in a txt file
         --config              Sets config to default values

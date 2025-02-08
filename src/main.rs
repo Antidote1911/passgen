@@ -4,9 +4,10 @@ use clap::Parser;
 use libpassgen::{calculate_length, generate_n_passwords};
 use std::io::stdout;
 use std::{fs::File, io::LineWriter, io::Write};
-
+use std::slice::Iter;
 use color_eyre::eyre::{eyre, Result};
 use color_eyre::owo_colors::OwoColorize;
+use itertools::{Format, Itertools};
 
 extern crate question;
 
@@ -20,9 +21,14 @@ fn main() {
         eprintln!("{} {}", "Error :".red(), e.red());
         std::process::exit(1);
     }
+
 }
 
 fn run() -> Result<()> {
+    // enable windows terminal colors
+    #[cfg(windows)]
+    let _ = enable_ansi_support::enable_ansi_support();
+
     let opts: Cli = Cli::parse();
 
     if opts.reset() {
@@ -42,9 +48,10 @@ fn run() -> Result<()> {
 
     let pass_vec = generate_n_passwords(&pool, length, opts.count());
 
-    for n in pass_vec.iter().take(opts.count()) {
-        println!("{}", n.yellow());
-    }
+    // for n in pass_vec.iter().take(opts.count()) {
+    //    println!("{}", n.yellow());
+    // }
+    println!("{}", pass_vec.iter().format("-").cyan());
 
     if opts.output().is_some() {
         let dest = opts.output().unwrap();
@@ -59,7 +66,7 @@ fn run() -> Result<()> {
                 .confirm();
 
             if answer == Answer::YES {
-                writetxt(pass_vec, &dest).map_err(|e| eyre!(e))?;
+                writetxt(pass_vec.iter().format("-"), &dest).map_err(|e| eyre!(e))?;
                 println!(
                     "{} '{}' {}",
                     "File".green(),
@@ -70,7 +77,7 @@ fn run() -> Result<()> {
                 println!("{}", "Writting file canceled.".green());
             }
         } else {
-            writetxt(pass_vec, &dest)?;
+            writetxt(pass_vec.iter().format("-"), &dest)?;
         }
     }
 
@@ -80,14 +87,14 @@ fn run() -> Result<()> {
     Ok(())
 }
 
-fn writetxt(x: Vec<String>, dest: &String) -> Result<()> {
+fn writetxt(x: Format<Iter<String>>, dest: &String) -> Result<()> {
     let file = File::create(dest)?;
     let mut file = LineWriter::new(file);
 
-    for i in x {
-        file.write_all(i.as_bytes())?;
-        file.write_all(b"\n")?;
-    }
+    let z=x.to_string();
+    file.write_all(z.as_bytes())?;
+
     println!("{}", "File Saved.".green());
+
     Ok(())
 }

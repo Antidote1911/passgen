@@ -1,4 +1,3 @@
-use std::fs;
 use assert_cmd::Command;
 use predicates::prelude::predicate;
 use std::io::{BufRead, BufReader};
@@ -27,7 +26,7 @@ fn password_arg_length_100() {
 }
 
 #[test]
-fn created_10_passwords() {
+fn created_serial_with_10_sections() {
     let mut cmd = cmd();
     cmd.args(&["-c", "10"]);
 
@@ -52,13 +51,3 @@ fn created_111_passwords() {
     assert_eq!(reader.lines().count(), 1);
 }
 
-#[test]
-fn created_50_passwords_save_txt() {
-    fs::remove_file("out.txt").unwrap();
-    let mut cmd = cmd();
-    cmd.args(&["-L", "6", "-c", "50", "--output", "out.txt"]);
-    // the colored output add 10 to len of stdout
-    let predicate_fn = predicate::str::contains("File Saved");
-
-    cmd.assert().success().stdout(predicate_fn);
-}

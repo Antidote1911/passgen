@@ -42,7 +42,7 @@ pub struct Cli {
     #[clap(short = 'E', long, value_name = "NUMBER", conflicts_with = "length")]
     entropy: Option<f64>,
 
-    /// Number of passwords
+    /// Number of sections for serial
     #[clap(short, long, value_name = "NUMBER", default_value = "1")]
     count: usize,
 

@@ -19,10 +19,13 @@ serde = { version = "1.0.217", features = ["derive"] }
 confy = "0.6.1"
 color-eyre = "0.6.3"
 question = "0.2.2"
+itertools = "0.14.0"
 # libpassgen = "1.0.3"
 libpassgen = { git = "https://github.com/Antidote1911/libpassgen", branch = "master" }
-itertools = "0.14.0"
 # libpassgen = { path = "../libpassgen" }
+
+[target.'cfg(windows)'.dependencies]
+enable-ansi-support = "0.2.1"
 
 [dev-dependencies]
 assert_cmd = "2.0.16"

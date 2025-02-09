@@ -25,7 +25,7 @@ fn main() {
 }
 
 fn run() -> Result<()> {
-    // enable windows terminal colors
+    // enable Windows terminal colors
     #[cfg(windows)]
     let _ = enable_ansi_support::enable_ansi_support();
 

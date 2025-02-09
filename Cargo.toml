@@ -1,6 +1,6 @@
 [package]
 name = "passgen"
-version = "0.4.1"
+version = "0.4.2"
 authors = ["Antidote1911 <antidote1911@gmail.com>"]
 license = "MIT"
 description = "🔑 Random password generator"

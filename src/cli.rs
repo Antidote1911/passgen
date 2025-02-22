@@ -1,8 +1,7 @@
 use crate::config::Config;
 
 use clap::Parser;
-use libpassgen::{calculate_entropy, Pool};
-use std::io::Write;
+use libpassgen::Pool;
 
 #[derive(Parser, Debug)]
 #[clap(
@@ -35,12 +34,8 @@ pub struct Cli {
     others: bool,
 
     /// Sets the required password length
-    #[clap(short = 'L', long, value_name = "NUMBER", default_value = "12")]
+    #[clap(short = 'L', long, value_name = "NUMBER", default_value = "8")]
     length: usize,
-
-    /// Sets the minimum required password entropy (conflicts with --length)
-    #[clap(short = 'E', long, value_name = "NUMBER", conflicts_with = "length")]
-    entropy: Option<f64>,
 
     /// Number of sections for serial
     #[clap(short, long, value_name = "NUMBER", default_value = "1")]
@@ -97,10 +92,6 @@ impl Cli {
         self.reset
     }
 
-    pub fn entropy(&self) -> Option<f64> {
-        self.entropy
-    }
-
     pub fn length(&self) -> usize {
         self.length
     }
@@ -111,36 +102,6 @@ impl Cli {
 
     pub fn output(&self) -> Option<String> {
         self.output.clone()
-    }
-}
-
-#[derive(Debug, Clone)]
-pub struct Info {
-    entropy: f64,
-    length: usize,
-    pool_size: usize,
-}
-
-impl Info {
-    // Creates new instance
-    pub fn new(length: usize, pool_size: usize) -> Self {
-        let entropy = calculate_entropy(length, pool_size);
-
-        Info {
-            entropy,
-            length,
-            pool_size,
-        }
-    }
-
-    // Prints info
-    pub fn write(&self, mut writer: impl Write) {
-        writeln!(
-            writer,
-            "Entropy: {:.0} bits | Length: {} chars | Pool size: {} chars",
-            self.entropy, self.length, self.pool_size
-        )
-        .unwrap();
     }
 }
 
@@ -157,7 +118,6 @@ mod tests {
             symbols: true,
             others: true,
             length: 0,
-            entropy: None,
             count: 1,
             info: false,
             output: None,
@@ -173,13 +133,5 @@ mod tests {
         assert!(pool.contains_all(opts.config.others()));
     }
 
-    #[test]
-    fn info_write() {
-        let mut actual: Vec<u8> = vec![];
-        Info::new(15, 64).write(&mut actual);
 
-        let expected = b"Entropy: 90 bits | Length: 15 chars | Pool size: 64 chars\n".to_vec();
-
-        assert_eq!(actual, expected);
-    }
 }

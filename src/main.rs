@@ -1,8 +1,9 @@
-use crate::cli::{Cli, Info};
+use crate::cli::Cli;
 use crate::config::Config;
 use clap::Parser;
-use libpassgen::{calculate_length, generate_n_passwords};
-use std::io::stdout;
+use libpassgen::generate_n_passwords;
+extern crate zxcvbn;
+use zxcvbn::zxcvbn;
 use std::{fs::File, io::LineWriter, io::Write};
 use std::slice::Iter;
 use color_eyre::eyre::{eyre, Result};
@@ -42,16 +43,13 @@ fn run() -> Result<()> {
 
     let pool = opts.collect();
 
-    let length = opts.entropy().map_or(opts.length(), |e| {
-        calculate_length(e, pool.len() as f64) as usize
-    });
-
-    let pass_vec = generate_n_passwords(&pool, length, opts.count());
+    let pass_vec = generate_n_passwords(&pool, opts.length(), opts.count());
 
     // for n in pass_vec.iter().take(opts.count()) {
     //    println!("{}", n.yellow());
     // }
-    println!("{}", pass_vec.iter().format("-").cyan());
+    let test=pass_vec.iter().format("-").to_string();
+    println!("{}", test.cyan());
 
     if opts.output().is_some() {
         let dest = opts.output().unwrap();
@@ -82,7 +80,9 @@ fn run() -> Result<()> {
     }
 
     if opts.info() {
-        Info::new(length, pool.len()).write(stdout());
+        let estimate = zxcvbn(&test, &[]);
+
+        println!("Bits: {:?}", estimate.guesses_log10());
     }
     Ok(())
 }

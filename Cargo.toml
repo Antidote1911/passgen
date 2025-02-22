@@ -14,15 +14,16 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-clap = { version = "4.5.28", features = ["derive", "cargo"] }
-serde = { version = "1.0.217", features = ["derive"] }
+clap = { version = "4.5.30", features = ["derive", "cargo"] }
+serde = { version = "1.0.218", features = ["derive"] }
 confy = "0.6.1"
 color-eyre = "0.6.3"
 question = "0.2.2"
 itertools = "0.14.0"
 # libpassgen = "1.0.3"
-libpassgen = { git = "https://github.com/Antidote1911/libpassgen", branch = "master" }
-# libpassgen = { path = "../libpassgen" }
+# libpassgen = { git = "https://github.com/Antidote1911/libpassgen", branch = "master" }
+libpassgen = { path = "../libpassgen" }
+zxcvbn = "3.1.0"
 
 [target.'cfg(windows)'.dependencies]
 enable-ansi-support = "0.2.1"
